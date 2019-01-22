@@ -129,12 +129,27 @@ const palindrome = str => {
 
 // Anagram grouping
 const anagram = list => {
-  const words = new HashMap;
+  let charHash = new HashMap
+  let results = []
 
-  // for each word make a hash and insert into array of hashes
+  for(const word of list) {
+    let charSorted = word.split('').sort().join('')
 
-  // compare each hash in the array to the others and group
-
-
+    let group = charHash.get(charSorted);
+    if(group) {
+      group.push(word)
+    }
+    else {
+      results.push(charSorted)
+      charHash.set(charSorted, [word])
+    }
+  }
+  let newArr = results.map(group => {
+    return charHash.get(group)
+  })
+  console.log(newArr)
+  return newArr
 }
-console.log(anagram(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']))
+anagram(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race'])
+
+// Seperate Chaining
