@@ -9,7 +9,7 @@ class HashMap {
   get(key) {
     const index = this._findSlot(key);
     if (this._slots[index] === undefined) {
-      throw new Error('Key error');
+      return null;
     }
     return this._slots[index].value;
   }
@@ -21,7 +21,6 @@ class HashMap {
     }
 
     const index = this._findSlot(key);
-    console.log(index);
     this._slots[index] = {
 
       key,
@@ -86,33 +85,56 @@ HashMap.SIZE_RATIO = 3;
 
 const lotr = new HashMap;
 
-// console.log(lotr.set("Hobbit", "Bilbo"));
-// console.log(lotr);
-// const arr = [
-//   {Hobbit:"Bilbo"},
-//   {Hobbit:"Frodo"},
-//   {Wizard:"Gandolf"},
-//   {Human:"Aragon"},
-//   {Elf: "Legolas"},
-//   {Maiar:"The Necromancer"},
-//   {Maiar: "Sauron"},
-//   {RingBearer: "Gollum"},
-//   {LadyOfLight: "Galadriel"},
-//   {HalfElven: "Arwen"},
-//   {Ent: "Treebeard"}
-// ];
+const arr = [
+  {Hobbit:"Bilbo"},
+  {Hobbit:"Frodo"},
+  {Wizard:"Gandolf"},
+  {Human:"Aragon"},
+  {Elf: "Legolas"},
+  {Maiar:"The Necromancer"},
+  {Maiar: "Sauron"},
+  {RingBearer: "Gollum"},
+  {LadyOfLight: "Galadriel"},
+  {HalfElven: "Arwen"},
+  {Ent: "Treebeard"}
+];
 
-// lotr.set('Hobbit', 'Bilbo');
-// lotr.set('Hobbit', 'Frodo');
-// lotr.set('Wizard', 'Gandolf');
-// lotr.set('Human', 'Aragon');
-lotr.set('Maiar', 'The Necromancer');
-lotr.set('Maiar', 'Sauron');
-// lotr.set('RingBearer', 'Gollum');
-// lotr.set('LadyOfLight', 'Galadriel');
-// lotr.set('HalfElven', 'Arwen');
-// lotr.set('Ent', 'Treebeard');
+arr.map(obj => lotr.set(Object.keys(obj).toString(), Object.values(obj).toString()));
 
-//console.log(arr.map(obj => lotr.set(Object.keys(obj).toString(), Object.values(obj).toString())));
-//console.log(lotr);
-//console.log(lotr.get("Maiar"));
+// Any permutation a palindrome
+const palindrome = str => {
+  const characters = new HashMap;
+  if(str.length < 3) {
+    return false;
+  }
+  for(let i = 0; i < str.length; i++) {
+    if(characters.get(str[i])) {
+      characters.set(str[i], characters.get(str[i]) + 1)
+    } else characters.set(str[i], 1)
+  }
+  let count = 0;
+  for(let j = 0; j < characters._capacity; j++) {
+    if(characters._slots[j]) {
+      if(characters._slots[j].value % 2 !== 0) {
+        count++;
+      }
+    }
+  }
+  if(count > 1) {
+    return false;
+  }
+  return true;
+}
+//console.log(palindrome('solos'));
+
+// Anagram grouping
+const anagram = list => {
+  const words = new HashMap;
+
+  // for each word make a hash and insert into array of hashes
+
+  // compare each hash in the array to the others and group
+
+
+}
+console.log(anagram(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']))
